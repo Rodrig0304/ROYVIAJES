@@ -1,120 +1,135 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Buscar Viajes</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
     <header class="header">
-        <div class="container d-flex justify-content-between align-items-center">
-            <img src="static/logo.PNG" alt="Logo" class="logo">
-            <span class="user-name">Bienvenido <strong>Rodrigo Uriel</strong></span>
-            <div class="user-icon">RU</div>
-        </div>
+      <div class="container d-flex justify-content-between align-items-center">
+        <img src="/static/logo.PNG" alt="Logo" class="logo" />
+        <span class="user-name">Bienvenido <strong>Rodrigo Uriel</strong></span>
+        <div class="user-icon">RU</div>
+      </div>
     </header>
 
     <div class="container mt-4" id="formulario-viaje">
-        <h2 class="title text-center">¡Hola! ¿A dónde vamos?</h2>
-        <div class="search-box">
+      <h2 class="title text-center">¡Hola! ¿A dónde vamos?</h2>
+      <div class="search-box">
+        <!-- Selector de origen -->
+        <label for="origen">¿De dónde sales?</label>
+        <select id="origen" class="form-control">
+          <option value="">Selecciona el origen del viaje</option>
+        </select>
 
-            <!-- Selector de origen -->
-            <label for="origen">¿De dónde sales?</label>
-            <select id="origen" class="form-control">
-                <option value="">Selecciona el origen del viaje</option>
-            </select>
+        <label for="ciudad-origen">Ciudad de salida</label>
+        <select id="ciudad-origen" class="form-control">
+          <option value="">Selecciona una ciudad</option>
+        </select>
 
-            <label for="ciudad-origen">Ciudad de salida</label>
-            <select id="ciudad-origen" class="form-control">
-                <option value="">Selecciona una ciudad</option>
-            </select>
+        <!-- Selector de destino -->
+        <label for="destino">¿A dónde viajas?</label>
+        <select id="destino" class="form-control">
+          <option value="">Selecciona el destino</option>
+        </select>
 
-            <!-- Selector de destino -->
-            <label for="destino">¿A dónde viajas?</label>
-            <select id="destino" class="form-control">
-                <option value="">Selecciona el destino</option>
-            </select>
+        <label for="ciudad-destino">Ciudad de destino</label>
+        <select id="ciudad-destino" class="form-control">
+          <option value="">Selecciona una ciudad</option>
+        </select>
 
-            <label for="ciudad-destino">Ciudad de destino</label>
-            <select id="ciudad-destino" class="form-control">
-                <option value="">Selecciona una ciudad</option>
-            </select>
-
-            <label>¿Cuándo viajas?</label>
-            <div class="btn-group">
-                <button class="btn btn-outline-primary" id="btn-hoy">Hoy</button>
-                <button class="btn btn-outline-primary" id="btn-manana">Mañana</button>
-                <button class="btn btn-outline-primary" id="btn-elegir">
-                    <i class="bi bi-calendar"></i> Elegir
-                </button>
-            </div>
-            <input type="date" class="form-control mt-2" id="fecha-viaje" hidden>
-            
-            <label>¿Cuándo regresas?</label>
-            <input type="date" class="form-control w-100" id="fecha-regreso" hidden>
-
-            <button class="btn btn-success w-100 mt-3" id="buscar-viajes-btn">Buscar viajes</button>
+        <label>¿Cuándo viajas?</label>
+        <div class="btn-group">
+          <button class="btn btn-outline-primary" id="btn-hoy">Hoy</button>
+          <button class="btn btn-outline-primary" id="btn-manana">
+            Mañana
+          </button>
+          <button class="btn btn-outline-primary" id="btn-elegir">
+            <i class="bi bi-calendar"></i> Elegir
+          </button>
         </div>
+        <input type="date" class="form-control mt-2" id="fecha-viaje" hidden />
+
+        <label>¿Cuándo regresas?</label>
+        <input
+          type="date"
+          class="form-control w-100"
+          id="fecha-regreso"
+          hidden
+        />
+
+        <button class="btn btn-success w-100 mt-3" id="buscar-viajes-btn">
+          Buscar viajes
+        </button>
+      </div>
     </div>
 
-   <!-- Contenedor para el proceso de búsqueda -->
-   <div id="loading">
-    <img src="static/autobus.png" alt="Autobús" class="autobus">
-    <p class="loading-text">Estamos buscando el autobús perfecto para tu viaje.</p>
-</div>
+    <!-- Contenedor para el proceso de búsqueda -->
+    <div id="loading">
+      <img src="static/autobus.png" alt="Autobús" class="autobus" />
+      <p class="loading-text">
+        Estamos buscando el autobús perfecto para tu viaje.
+      </p>
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Contenedor de resultados (pantalla completa) -->
     <div id="contenedor-viajes" class="pantalla-completa">
-        <div id="resultados">
-            <!-- Los resultados de los viajes se mostrarán aquí -->
-        </div>
-        <button class="btn btn-primary" id="regresar-btn">Regresar</button>
+      <div id="resultados">
+        <!-- Los resultados de los viajes se mostrarán aquí -->
+      </div>
+      <button class="btn btn-primary" id="regresar-btn">Regresar</button>
     </div>
 
     <nav class="navbar fixed-bottom">
-        <div class="container d-flex justify-content-around">
-            <a href="/templates/index.html" class="nav-link text-center">
-                <i class="bi bi-search"></i><br>Buscar
-            </a>
-            <a href="/templates/boletos.html" class="nav-link text-center">
-                <i class="bi bi-ticket"></i><br>Boletos
-
-            </a>
-            <a href="/templates/cuenta.html" class="nav-link text-center">
-                <i class="bi bi-person"></i><br>Cuenta
-            </a>
-        </div>
+      <div class="container d-flex justify-content-around">
+        <a href="/templates/index.html" class="nav-link text-center">
+          <i class="bi bi-search"></i><br />Buscar
+        </a>
+        <a href="/templates/boletos.html" class="nav-link text-center">
+          <i class="bi bi-ticket"></i><br />Boletos
+        </a>
+        <a href="/templates/cuenta.html" class="nav-link text-center">
+          <i class="bi bi-person"></i><br />Cuenta
+        </a>
+      </div>
     </nav>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/static/script.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const origenInput = document.getElementById('origen');
-            const destinoInput = document.getElementById('destino');
-            const fechaViajeInput = document.getElementById('fecha-viaje');
-            const buscarViajesBtn = document.getElementById('buscar-viajes-btn');
-            const contenedorViajes = document.getElementById('contenedor-viajes');
-            const resultadosDiv = document.getElementById('resultados');
-            const regresarBtn = document.getElementById('regresar-btn');
-            const loadingDiv = document.getElementById('loading');
-            const progressBar = document.getElementById('progress-bar');
+      document.addEventListener("DOMContentLoaded", function () {
+        const origenInput = document.getElementById("origen");
+        const destinoInput = document.getElementById("destino");
+        const fechaViajeInput = document.getElementById("fecha-viaje");
+        const buscarViajesBtn = document.getElementById("buscar-viajes-btn");
+        const contenedorViajes = document.getElementById("contenedor-viajes");
+        const resultadosDiv = document.getElementById("resultados");
+        const regresarBtn = document.getElementById("regresar-btn");
+        const loadingDiv = document.getElementById("loading");
+        const progressBar = document.getElementById("progress-bar");
 
-          // Evento de clic en el botón "Buscar viajes"
-buscarViajesBtn.addEventListener('click', function() {
-    loadingDiv.classList.remove('d-none');
-    document.getElementById('formulario-viaje').style.display = 'none';
+        // Evento de clic en el botón "Buscar viajes"
+        buscarViajesBtn.addEventListener("click", function () {
+          loadingDiv.classList.remove("d-none");
+          document.getElementById("formulario-viaje").style.display = "none";
 
-    // Simulamos un retraso para la carga de los resultados (3 segundos)
-    setTimeout(function() {
-        loadingDiv.classList.add('d-none');
-        resultadosDiv.innerHTML = `
+          // Simulamos un retraso para la carga de los resultados (3 segundos)
+          setTimeout(function () {
+            loadingDiv.classList.add("d-none");
+            resultadosDiv.innerHTML = `
             <div class="alert alert-success" role="alert">
                 ¡Aquí están tus opciones de viaje!
             </div>
@@ -124,54 +139,48 @@ buscarViajesBtn.addEventListener('click', function() {
                 <li>Viaje 3: Ciudad E - Ciudad F</li>
             </ul>
         `;
-        contenedorViajes.classList.add('active');
-    }, 3000);  // Tiempo de duración de la animación (en milisegundos)
-});
-
-
-            // Regresar al formulario
-            regresarBtn.addEventListener('click', function() {
-                contenedorViajes.classList.remove('active');
-                document.getElementById('formulario-viaje').style.display = 'block';
-            });
+            contenedorViajes.classList.add("active");
+          }, 3000); // Tiempo de duración de la animación (en milisegundos)
         });
+
+        // Regresar al formulario
+        regresarBtn.addEventListener("click", function () {
+          contenedorViajes.classList.remove("active");
+          document.getElementById("formulario-viaje").style.display = "block";
+        });
+      });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Obtener los botones y campos de fecha
-            const btnHoy = document.getElementById('btn-hoy');
-            const btnManana = document.getElementById('btn-manana');
-            const btnElegir = document.getElementById('btn-elegir');
-            const inputFechaViaje = document.getElementById('fecha-viaje');
-            const inputFechaRegreso = document.getElementById('fecha-regreso');
-    
-            
-            function obtenerFechaActual(offset = 0) {
-                const hoy = new Date();
-                hoy.setDate(hoy.getDate() + offset); 
-                return hoy.toISOString().split('T')[0];
-            }
-    
-            
-            btnHoy.addEventListener('click', function() {
-                inputFechaViaje.value = obtenerFechaActual(0); 
-                inputFechaViaje.hidden = false;
-            });
-    
-            
-            btnManana.addEventListener('click', function() {
-                inputFechaViaje.value = obtenerFechaActual(1); 
-                inputFechaViaje.hidden = false;
-            });
-    
-            
-            btnElegir.addEventListener('click', function() {
-                inputFechaViaje.hidden = false; 
-            });
-    
-            
-            inputFechaRegreso.hidden = false;
+      document.addEventListener("DOMContentLoaded", function () {
+        // Obtener los botones y campos de fecha
+        const btnHoy = document.getElementById("btn-hoy");
+        const btnManana = document.getElementById("btn-manana");
+        const btnElegir = document.getElementById("btn-elegir");
+        const inputFechaViaje = document.getElementById("fecha-viaje");
+        const inputFechaRegreso = document.getElementById("fecha-regreso");
+
+        function obtenerFechaActual(offset = 0) {
+          const hoy = new Date();
+          hoy.setDate(hoy.getDate() + offset);
+          return hoy.toISOString().split("T")[0];
+        }
+
+        btnHoy.addEventListener("click", function () {
+          inputFechaViaje.value = obtenerFechaActual(0);
+          inputFechaViaje.hidden = false;
         });
+
+        btnManana.addEventListener("click", function () {
+          inputFechaViaje.value = obtenerFechaActual(1);
+          inputFechaViaje.hidden = false;
+        });
+
+        btnElegir.addEventListener("click", function () {
+          inputFechaViaje.hidden = false;
+        });
+
+        inputFechaRegreso.hidden = false;
+      });
     </script>
-</body>
+  </body>
 </html>
